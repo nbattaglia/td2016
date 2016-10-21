@@ -12,6 +12,8 @@ namespace td2016
 {
     public class Startup
     {
+
+        
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -20,11 +22,7 @@ namespace td2016
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-            if (env.IsDevelopment())
-            {
-                // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-                builder.AddApplicationInsightsSettings(developerMode: true);
-            }
+         
             Configuration = builder.Build();
         }
 
@@ -34,7 +32,7 @@ namespace td2016
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddApplicationInsightsTelemetry(Configuration);
+           // services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
         }
@@ -45,7 +43,7 @@ namespace td2016
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseApplicationInsightsRequestTelemetry();
+            //app.UseApplicationInsightsRequestTelemetry();
 
             if (env.IsDevelopment())
             {
@@ -57,7 +55,7 @@ namespace td2016
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseApplicationInsightsExceptionTelemetry();
+           //app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
 
